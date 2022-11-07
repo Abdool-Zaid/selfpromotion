@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <meta name="description" content="promotion list of Abdool Zaid">
+    <title>promotion list</title>
+</head>
+<body>
+    <div id="input">
+        <input type="text" id="name">
+        <input type="text" id="link">
+        <button>submit</button>
+    </div>
+    <div id="target"></div>
+    <script>
+        let target=document.querySelector('#target')
+        let input=document.querySelector('#input')
+        let name=document.querySelector('#name').value
+        let link=document.querySelector('#link').value
+    </script>
+<style>
+    *{
+        padding: 0;
+        margin: 0;
+        box-sizing: border-box;
+    }
+#input{
+    position: fixed;
+    top: 0;
+    left: 50%;
+    transform: translate(-50%);
+display: flex;
+flex-direction: column;    
+margin: 1%;
+padding: 1%;
+}
+</style>
+</body>
+</html>
