@@ -9,27 +9,70 @@
   </head>
   <body>
     <form id="input" type="submit">
-      <input type="text" id="name" name="name" />
-      <input type="text" id="link" name="link" />
-      <button onclick="submit(event)">submit</button>
+      <input type="text" id="namefieldf" name="name" />
+      <input type="text" id="linkfieldf" name="link" />
+      <button id="submitBtn" onclick=" runMain(event)">submit</button>
     </form>
     <div id="target"></div>
     <script>
+      let appLIsts = [];
+      if(localStorage.appLIsts){
+appLIsts=JSON.parse(localStorage.appLIsts)
+}
+let i
+      let submitBtn = document.querySelector("#submitBtn");
       let target = document.querySelector("#target");
       let input = document.querySelector("#input");
-      let name = document.querySelector("#name").value;
-      //   let name = document.getElementById("name").value;
-      let link = document.querySelector("#link");
-      let applications = [{ name: "", link: "" }];
-
-      function submit(e) {
-        e.preventDefault();
-        console.log(name);
-      }
-      let runMain = () => {
-        event.preventDefault();
-        console.log(name);
+      let getValue=(id , ref)=>{
+        if (ref == true){
+          document.querySelector(`#${id}`).value=''
+        }
+        return document.querySelector(`#${id}`).value
+      } 
+      let syleAPPS = () => {
+        document
+          .querySelectorAll(".applicationItem")
+          .forEach((applicationItem) => {
+            applicationItem.style = `
+  display: flex;
+        background-color: #efefef;
+        border-radius: 20px;
+        border: 2px dashed #a2d3;
+        flex-direction: column;
+    align-items: flex-start;
+    padding: 1%;
+        margin: 1%;
+        `;
+          });
       };
+      let renderArray = () => {
+localStorage.setItem('appLIsts',JSON.stringify(appLIsts))
+getValue('namefieldf', true)
+getValue('linkfieldf', true)
+console.log(appLIsts.length)
+        for (i = 0; i < appLIsts.length; i++) {
+          getValue('target',true)
+          target.innerHTML += `
+    <div class="applicationItem" id="application${i}">
+      <h1>${appLIsts[i].namefieldf}</h1>
+      <h4>${appLIsts[i].linkfieldf}</h4>
+      <p>${appLIsts[i].response}</p>
+    </div>
+          `;
+          syleAPPS();
+        }
+      };
+      let runMain = (event) => {
+        event.preventDefault();
+        appLIsts.unshift({
+          namefieldf: getValue('namefieldf'),
+          linkfieldf: getValue('linkfieldf'),
+          response: "mlem",
+        });
+        console.table(appLIsts)
+        renderArray();
+      };
+      renderArray();
     </script>
     <style>
       * {
