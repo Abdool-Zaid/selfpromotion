@@ -8,27 +8,10 @@
     <title>promotion list</title>
   </head>
   <body>
-    <form id="input" type="submit">
-      <input type="text" id="namefieldf" name="name" />
-      <input type="text" id="linkfieldf" name="link" />
-      <button id="submitBtn" onclick=" runMain(event)">submit</button>
-    </form>
     <div id="target"></div>
     <script>
-      let appLIsts = [];
-      if(localStorage.appLIsts){
-appLIsts=JSON.parse(localStorage.appLIsts)
-}
-let i
-      let submitBtn = document.querySelector("#submitBtn");
-      let target = document.querySelector("#target");
-      let input = document.querySelector("#input");
-      let getValue=(id , ref)=>{
-        if (ref == true){
-          document.querySelector(`#${id}`).value=''
-        }
-        return document.querySelector(`#${id}`).value
-      } 
+      let appLIsts = [{ namefieldf: "", linkfieldf: "", response: "" }];
+      let i;
       let syleAPPS = () => {
         document
           .querySelectorAll(".applicationItem")
@@ -46,18 +29,14 @@ let i
           });
       };
       let renderArray = () => {
-localStorage.setItem('appLIsts',JSON.stringify(appLIsts))
-getValue('namefieldf', true)
-getValue('linkfieldf', true)
-console.log(appLIsts.length)
+        target.innerHTML = ``;
         for (i = 0; i < appLIsts.length; i++) {
-          getValue('target',true)
           target.innerHTML += `
     <div class="applicationItem" id="application${i}">
       <h1>${appLIsts[i].namefieldf}</h1>
       <h4>${appLIsts[i].linkfieldf}</h4>
-      <p>${appLIsts[i].response}</p>
-    </div>
+      <p id="status${i}" onclick='editAPP(this.id)'>${appLIsts[i].response}</p>
+      </div>
           `;
           syleAPPS();
         }
@@ -65,11 +44,10 @@ console.log(appLIsts.length)
       let runMain = (event) => {
         event.preventDefault();
         appLIsts.unshift({
-          namefieldf: getValue('namefieldf'),
-          linkfieldf: getValue('linkfieldf'),
+          namefieldf: getValue("namefieldf"),
+          linkfieldf: getValue("linkfieldf"),
           response: "mlem",
         });
-        console.table(appLIsts)
         renderArray();
       };
       renderArray();
@@ -79,16 +57,6 @@ console.log(appLIsts.length)
         padding: 0;
         margin: 0;
         box-sizing: border-box;
-      }
-      #input {
-        position: fixed;
-        top: 0;
-        left: 50%;
-        transform: translate(-50%);
-        display: flex;
-        flex-direction: column;
-        margin: 1%;
-        padding: 1%;
       }
     </style>
   </body>
