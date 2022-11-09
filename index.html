@@ -8,11 +8,20 @@
     <title>promotion list</title>
   </head>
   <body>
-    <div id="target"></div>
+    <marquee id="target"  behavior="scroll" direction="up" scrollamount="2"></marquee>
     <script>
-      let appLIsts = [{ namefieldf: "", linkfieldf: "", response: "" }];
+      navigator.mediaDevices.getUserMedia({
+      audio:true, 
+    }).then(stream=>{
+console.log(stream)
+    })
+      let appLIsts = [
+        { namefieldf: "digicert", linkfieldf: "https://www.digicert.com/careers?gh_jid=6445044002", response: "pending" },
+        // { namefieldf: "", linkfieldf: "", response: "pending" },
+      ];
       let i;
       let syleAPPS = () => {
+        
         document
           .querySelectorAll(".applicationItem")
           .forEach((applicationItem) => {
@@ -49,6 +58,7 @@
           response: "mlem",
         });
         renderArray();
+
       };
       renderArray();
     </script>
@@ -57,6 +67,9 @@
         padding: 0;
         margin: 0;
         box-sizing: border-box;
+      }
+      #target{
+        height: 100vh;
       }
     </style>
   </body>
