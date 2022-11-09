@@ -8,36 +8,58 @@
     <title>promotion list</title>
   </head>
   <body>
-    <marquee id="target"  behavior="scroll" direction="up" scrollamount="2"></marquee>
+    <marquee behavior="scroll" direction="right">
+      <marquee id="target" behavior="scroll" direction="up"></marquee>
+    </marquee>
     <script>
-      navigator.mediaDevices.getUserMedia({
-      audio:true, 
-    }).then(stream=>{
-console.log(stream)
-const soundMeter = window.soundMeter = new SoundMeter(window.audioContext);
-  soundMeter.connectToSource(stream, function(e) {
-    if (e) {
-      alert(e);
-      return;
-    }
-    console.log(soundMeter)
-    // meterRefresh = setInterval(() => {
-    //   instantMeter.value = instantValueDisplay.innerText =
-    //     soundMeter.instant.toFixed(2);
-    //   slowMeter.value = slowValueDisplay.innerText =
-    //     soundMeter.slow.toFixed(2);
-    //   clipMeter.value = clipValueDisplay.innerText =
-    //     soundMeter.clip;
-    // }, 200);
-  });    
-})
+      let generateSpeed = (variable) => {
+        let speed = Math.floor(Math.random() * variable) + 1
+        console.log(speed);
+        return speed;
+        setTimeout(() => {
+          generateSpeed(variable);
+        }, 1000);
+      };
+      // navigator.mediaDevices
+      //   .getUserMedia({
+      //     audio: true,
+      //   })
+      //   .then((stream) => {
+      //     // console.log(stream);
+      //   });
+
       let appLIsts = [
-        { namefieldf: "digicert", linkfieldf: "https://www.digicert.com/careers?gh_jid=6445044002", response: "pending" },
+        {
+          namefieldf: "digicert",
+          linkfieldf: "https://www.digicert.com/careers?gh_jid=6445044002",
+          response: "pending",
+        },
         // { namefieldf: "", linkfieldf: "", response: "pending" },
       ];
       let i;
       let syleAPPS = () => {
         
+      navigator.mediaDevices.getUserMedia({
+  audio: true,
+})
+  .then(function(stream) {
+    const audioContext = new AudioContext();
+    const analyser = audioContext.createAnalyser();
+    const microphone = audioContext.createMediaStreamSource(stream);
+    const scriptProcessor = audioContext.createScriptProcessor(2048, 1, 1);
+    analyser.smoothingTimeConstant = 0.8;
+    analyser.fftSize = 1024;
+    microphone.connect(analyser);
+    analyser.connect(scriptProcessor);
+    scriptProcessor.connect(audioContext.destination);
+    scriptProcessor.onaudioprocess = function() {
+      const array = new Uint8Array(analyser.frequencyBinCount);
+      analyser.getByteFrequencyData(array);
+      const arraySum = array.reduce((a, value) => a + value, 0);
+      let average = arraySum / array.length;
+      average=Math.round(average)
+    };
+  })
         document
           .querySelectorAll(".applicationItem")
           .forEach((applicationItem) => {
@@ -49,7 +71,9 @@ const soundMeter = window.soundMeter = new SoundMeter(window.audioContext);
         flex-direction: column;
     align-items: flex-start;
     padding: 1%;
+    width:20vw;
         margin: 1%;
+        animation:spin ${generateSpeed(10)}s linear infinite;
         `;
           });
       };
@@ -58,8 +82,8 @@ const soundMeter = window.soundMeter = new SoundMeter(window.audioContext);
         for (i = 0; i < appLIsts.length; i++) {
           target.innerHTML += `
     <div class="applicationItem" id="application${i}">
-      <h1>${appLIsts[i].namefieldf}</h1>
-      <h4>${appLIsts[i].linkfieldf}</h4>
+      <a href="${appLIsts[i].linkfieldf}" target="_blank">
+      <h1>${appLIsts[i].namefieldf}</h1></a>
       <p id="status${i}" onclick='editAPP(this.id)'>${appLIsts[i].response}</p>
       </div>
           `;
@@ -74,7 +98,6 @@ const soundMeter = window.soundMeter = new SoundMeter(window.audioContext);
           response: "mlem",
         });
         renderArray();
-
       };
       renderArray();
     </script>
@@ -84,8 +107,24 @@ const soundMeter = window.soundMeter = new SoundMeter(window.audioContext);
         margin: 0;
         box-sizing: border-box;
       }
-      #target{
+      #target {
         height: 100vh;
+      }
+      @-moz-keyframes spin {
+        100% {
+          -moz-transform: rotate(360deg);
+        }
+      }
+      @-webkit-keyframes spin {
+        100% {
+          -webkit-transform: rotate(360deg);
+        }
+      }
+      @keyframes spin {
+        100% {
+          -webkit-transform: rotate(360deg);
+          transform: rotate(360deg);
+        }
       }
     </style>
   </body>
