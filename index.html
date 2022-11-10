@@ -9,11 +9,11 @@
   </head>
   <body>
     <!-- <marquee behavior="scroll" direction="right"> -->
-      <marquee id="target" behavior="scroll" direction="up"></marquee>
+    <marquee id="target" behavior="scroll" direction="up"></marquee>
     <!-- </marquee> -->
     <script>
       let generateSpeed = (variable) => {
-        let speed = Math.floor(Math.random() * variable) + 1
+        let speed = Math.floor(Math.random() * variable) + 1;
         console.log(speed);
         return speed;
         setTimeout(() => {
@@ -34,35 +34,51 @@
           linkfieldf: "https://www.digicert.com/careers?gh_jid=6445044002",
           response: "pending",
         },
-        { namefieldf: "brainnest", linkfieldf: "https://jobs.lever.co/brainnest/0f23b4dc-b1ae-4650-afe4-11e410dc766b/apply?lever-source=LinkedIn", response: "pending" },
+        {
+          namefieldf: "brainnest",
+          linkfieldf:
+            "https://jobs.lever.co/brainnest/0f23b4dc-b1ae-4650-afe4-11e410dc766b/apply?lever-source=LinkedIn",
+          response: "pending",
+        },
+        {
+          namefieldf: "Acrolinx",
+          linkfieldf:
+            "https://boards.eu.greenhouse.io/acrolinx/jobs/4096476101",
+          response: "pending",
+        },
+        {
+          namefieldf: "tumaini",
+          linkfieldf:
+            "http://www.tumaini.co.za/job/Full-Stack+Python+Developer++%28Remote%29+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++/52731",
+          response: "pending",
+        },
         // { namefieldf: "", linkfieldf: "", response: "pending" },
       ];
       let i;
       let syleAPPS = () => {
-        
-//       navigator.mediaDevices.getUserMedia({
-//   audio: true,
-// })
-//   .then(function(stream) {
-//     console.log(navigator.permissions)
+        //       navigator.mediaDevices.getUserMedia({
+        //   audio: true,
+        // })
+        //   .then(function(stream) {
+        //     console.log(navigator.permissions)
 
-//     const audioContext = new AudioContext();
-//     const analyser = audioContext.createAnalyser();
-//     const microphone = audioContext.createMediaStreamSource(stream);
-//     const scriptProcessor = audioContext.createScriptProcessor(2048, 1, 1);
-//     analyser.smoothingTimeConstant = 0.8;
-//     analyser.fftSize = 1024;
-//     microphone.connect(analyser);
-//     analyser.connect(scriptProcessor);
-//     scriptProcessor.connect(audioContext.destination);
-//     scriptProcessor.onaudioprocess = function() {
-//       const array = new Uint8Array(analyser.frequencyBinCount);
-//       analyser.getByteFrequencyData(array);
-//       const arraySum = array.reduce((a, value) => a + value, 0);
-//       let average = arraySum / array.length;
-//       average=Math.round(average)
-//     };
-//   })
+        //     const audioContext = new AudioContext();
+        //     const analyser = audioContext.createAnalyser();
+        //     const microphone = audioContext.createMediaStreamSource(stream);
+        //     const scriptProcessor = audioContext.createScriptProcessor(2048, 1, 1);
+        //     analyser.smoothingTimeConstant = 0.8;
+        //     analyser.fftSize = 1024;
+        //     microphone.connect(analyser);
+        //     analyser.connect(scriptProcessor);
+        //     scriptProcessor.connect(audioContext.destination);
+        //     scriptProcessor.onaudioprocess = function() {
+        //       const array = new Uint8Array(analyser.frequencyBinCount);
+        //       analyser.getByteFrequencyData(array);
+        //       const arraySum = array.reduce((a, value) => a + value, 0);
+        //       let average = arraySum / array.length;
+        //       average=Math.round(average)
+        //     };
+        //   })
         document
           .querySelectorAll(".applicationItem")
           .forEach((applicationItem) => {
@@ -76,8 +92,8 @@
     padding: 1%;
         margin: 1%;
         `;
-      });
-      // animation:spin ${generateSpeed(10)}s linear infinite;
+          });
+        // animation:spinIt ${generateSpeed(10)}s linear infinite;
       };
       let renderArray = () => {
         target.innerHTML = ``;
@@ -101,6 +117,22 @@
         });
         renderArray();
       };
+      let style = document.createElement("style");
+      style.type = "text/css";
+      let keyFrames =
+        "\
+@-webkit-keyframes spinIt {\
+    100% {\
+        -webkit-transform: rotate(A_DYNAMIC_VALUE);\
+    }\
+}\
+@-moz-keyframes spinIt {\
+    100% {\
+        -webkit-transform: rotate(A_DYNAMIC_VALUE);\
+    }\
+}";
+      style.innerHTML = keyFrames.replace(/A_DYNAMIC_VALUE/g, "360deg");
+      document.getElementsByTagName("head")[0].appendChild(style);
       renderArray();
     </script>
     <style>
